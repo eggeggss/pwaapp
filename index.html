@@ -80,6 +80,11 @@
                 from { transform:rotate(0deg); }
                 to {transform:rotate(360deg); }
             }
+            .add-button {
+                position: absolute;
+                top: 50px;
+                left: 1px;
+            }
         </style>
 
     </head>
@@ -101,6 +106,7 @@
         <!-- Main Conatainer -->
         <main class="container p-1">
             <h5>Page1</h5>
+            <button class="add-button btn btn-primary">Add to home screen</button>
             <a href='index2.html'>v1.3</h5>
             <!-- Error Alert -->
             <div class="alert alert-danger text-center m-1" style="display:none;">
@@ -111,6 +117,38 @@
             <div id="giphys" class="row no-gutters"></div>
             
         </main>
-    </body>
+    <script>
+        let deferredPrompt;
+        const addBtn = document.querySelector('.add-button');
+        addBtn.style.display = 'none';
 
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI to notify the user they can add to home screen
+            addBtn.style.display = 'block';
+
+            addBtn.addEventListener('click', (e) => {
+                // hide our user interface that shows our A2HS button
+                addBtn.style.display = 'none';
+                // Show the prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                    } else {
+                    console.log('User dismissed the A2HS prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+
+    </script>
+    </body>
+ 
 </html>
