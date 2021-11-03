@@ -82,8 +82,8 @@
             }
             .add-button {
                 position: absolute;
-                top: 200px;
-                left: 1px;
+                top: 100px;
+                right: 100px;
             }
         </style>
 
@@ -120,7 +120,7 @@
     <script>
         let deferredPrompt;
         const addBtn = document.querySelector('.add-button');
-        addBtn.style.display = 'none';
+        //addBtn.style.display = 'none';
 
 
         window.addEventListener('beforeinstallprompt', (e) => {

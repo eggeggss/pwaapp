@@ -14,10 +14,10 @@ const appAssets=[
 
 self.addEventListener('install',function(e){
 
-    e.waitUntil(
-        /* caches.open(`static-${version}`)
-        .then(cache=>cache.addAll(appAssets)) */
-    ); 
+    /* e.waitUntil(
+         caches.open(`static-${version}`)
+        .then(cache=>cache.addAll(appAssets)) 
+    );  */
      
 });
 
