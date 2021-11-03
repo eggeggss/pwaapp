@@ -11,6 +11,22 @@ const appAssets=[
     'vendor/jquery.min.js'
 ];
 
+const fireAddToHomeScreenImpression = event => {
+    fireTracking("Add to homescreen shown");
+    //will not work for chrome, untill fixed
+    event.userChoice.then(choiceResult => {
+      fireTracking(`User clicked ${choiceResult}`);
+    });
+    //This is to prevent `beforeinstallprompt` event that triggers again on `Add` or `Cancel` click
+    window.removeEventListener(
+      "beforeinstallprompt",
+      fireAddToHomeScreenImpression
+    );
+};
+
+self.addEventListener("beforeinstallprompt", fireAddToHomeScreenImpression);
+  
+
 self.addEventListener('install',function(e){
 
     e.waitUntil(
